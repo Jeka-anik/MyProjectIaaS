@@ -47,3 +47,16 @@ resource "aws_security_group" "fromWebServer" {
     Name = "SGforWebServer"
   }
 } 
+output "ami-ouput" {
+    description = "My ami output"
+    value = data.aws_ami.my-ubuntu.id
+}
+
+output "ami-ouput-creation-date" {
+    description = "My ami output creation date"
+    value = data.aws_ami.my-ubuntu.creation_date
+}
+output "instance_public_ip" {
+  description = "Public IP address of the EC2 instance"
+  value       = data.aws_ami.my-ubuntu.app_server.public_ip
+}
