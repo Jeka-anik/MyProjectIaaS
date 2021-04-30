@@ -49,7 +49,7 @@ resource "aws_security_group" "fromWebServer" {
 } 
 output "ami-ouput" {
     description = "My ami output"
-    value = data.aws_ami.myWebServer.id
+    value = data.myWebServer.id
 }
 
 output "ami-ouput-creation-date" {
