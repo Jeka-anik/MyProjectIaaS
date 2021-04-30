@@ -52,10 +52,6 @@ output "ami-ouput" {
     value = aws_instance.myWebServer.id
 }
 
-output "ami-ouput-creation-date" {
-    description = "My ami output creation date"
-    value = aws_instance.myWebServer.creation_date
-}
 output "instance_public_ip" {
   description = "Public IP address of the EC2 instance"
   value       = aws_instance.myWebServer.public_ip
