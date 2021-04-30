@@ -49,14 +49,14 @@ resource "aws_security_group" "fromWebServer" {
 } 
 output "ami-ouput" {
     description = "My ami output"
-    value = data.aws_ami.my-ubuntu.id
+    value = data.aws_ami.myWebServer.id
 }
 
 output "ami-ouput-creation-date" {
     description = "My ami output creation date"
-    value = data.aws_ami.my-ubuntu.creation_date
+    value = data.aws_ami.myWebServer.creation_date
 }
 output "instance_public_ip" {
   description = "Public IP address of the EC2 instance"
-  value       = data.aws_ami.my-ubuntu.app_server.public_ip
+  value       = data.aws_ami.myWebServer.app_server.public_ip
 }
