@@ -5,7 +5,7 @@
 
 output "instance_public_ip" {
   description = "Public IP address of the EC2 instance"
-  value       = aws_instance.latest_ubuntu.instance_public_ip
+  value       = aws_elb.web.public_ip
 }
 output "web_loadbalancer_url" {
   value = aws_elb.web.dns_name
