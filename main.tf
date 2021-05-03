@@ -45,7 +45,7 @@ resource "aws_security_group" "webSG" {
 resource "aws_launch_configuration" "web" {
   //  name            = "WebServer-Highly-Available-LC"
   name_prefix     = "WebServer-Highly-Available-LC-"
-  image_id        = data.aws_ami.latest_amazon_linux.id
+  image_id        = data.aws_ami.latest_ubuntu.id
   instance_type   = "t3.micro"
   security_groups = [aws_security_group.webSG.id]
   user_data       = file("user_data.sh")
