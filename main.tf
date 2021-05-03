@@ -49,6 +49,7 @@ resource "aws_launch_configuration" "web" {
   instance_type   = "t3.micro"
   security_groups = [aws_security_group.webSG.id]
   user_data       = file("user_data.sh")
+  key_name        = "hw41"
 
   lifecycle {
     create_before_destroy = true
