@@ -7,8 +7,8 @@ output "instance_public_ip" {
   description = "Public IP address of the EC2 instance"
   value       = data.latest_ubuntu.public_ip[0]
 }
-output "instance_public_ip" {
-  description = "Public IP address of the EC2 instance"
+output "instance_public_ip2" {
+  description = "Public IP address of the EC2 instance2"
   value       = data.latest_ubuntu.public_ip[1]
 }
 output "web_loadbalancer_url" {
