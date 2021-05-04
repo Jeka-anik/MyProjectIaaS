@@ -112,7 +112,7 @@ resource "aws_launch_template" "web" {
     }
   }
 
-  user_data = file("user_data.sh")
+  user_data = filebase64("${path.module}/user_data.sh")
 }
 
 # resource "aws_launch_configuration" "web" {
