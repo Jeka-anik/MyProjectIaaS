@@ -96,9 +96,9 @@ resource "aws_launch_template" "web" {
     security_groups             = aws_security_group.webSG.id
   }
 
-  placement {
-    availability_zone = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
-  }
+#   placement {
+#     availability_zone = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
+#   }
 
 #   ram_disk_id = "test"
 
