@@ -3,12 +3,12 @@
 #     value = aws_instance.myWebServer.id
 # }
 
-output "instance_public_ip" {
-  description = "Public IP address of the EC2 instance"
-  value       = aws_elb.web.instances
-}
+# output "instance_public_ip" {
+#   description = "Public IP address of the EC2 instance"
+#   value       = aws_elb.web.instances
+# }
 output "web_loadbalancer_url" {
-  value = aws_elb.web.dns_name
+  value = aws_lb.web.dns_name
 }
 
 output "latest_ubuntu_ami_id" {
