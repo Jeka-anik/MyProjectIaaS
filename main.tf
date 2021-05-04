@@ -76,7 +76,6 @@ resource "aws_launch_template" "web" {
   image_id = data.aws_ami.latest_ubuntu.id
 
   instance_initiated_shutdown_behavior = "terminate"
-  security_groups = [aws_security_group.webSG.id]
   instance_type = "t3.micro"
 
   key_name = "hw41"
@@ -91,10 +90,10 @@ resource "aws_launch_template" "web" {
     enabled = false
   }
 
-  network_interfaces {
-    associate_public_ip_address = true
-    security_groups             = [aws_security_group.webSG.id]
-  }
+#   network_interfaces {
+#     associate_public_ip_address = true
+#     security_groups             = [aws_security_group.webSG.id]
+#   }
 
 #   placement {
 #     availability_zone = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
