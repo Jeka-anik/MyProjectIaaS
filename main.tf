@@ -165,7 +165,8 @@ resource "aws_autoscaling_group" "web" {
 resource "aws_lb" "web" {
   name               = "WebServer-HA-ELB"
   load_balancer_type = "application"
-  availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
+  subnets            = aws_subnet.public.*.id
+#   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
   security_groups    = [aws_security_group.webSG.id]
 #   listener {
 #     lb_port           = 80
