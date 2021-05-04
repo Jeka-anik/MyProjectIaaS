@@ -4,7 +4,11 @@ provider "aws" {
     region     = "us-east-1"
 }
 
-
+variable "app_subnets" { 
+    type = list(string) 
+    description = "App subnets id" 
+    default = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
+} 
 data "aws_availability_zones" "available" {}
 data "aws_ami" "latest_ubuntu" {
   owners      = ["099720109477"]
@@ -166,7 +170,7 @@ resource "aws_lb" "web" {
   name               = "WebServer-HA-ELB"
   internal           = false
   load_balancer_type = "application"
-  subnets            =  [subnet-4369fc25, subnet-de745093]
+  subnets            =  var.app_subnets 
 #   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
   security_groups    = [aws_security_group.webSG.id]
 #   listener {
