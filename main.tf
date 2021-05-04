@@ -141,7 +141,6 @@ resource "aws_autoscaling_group" "web" {
   load_balancers       = [aws_elb.web.name]
   launch_template {
     id      = aws_launch_template.web.id
-    version = "$Latest"
   }
   dynamic "tag" {
     for_each = {
