@@ -70,7 +70,7 @@ resource "aws_launch_template" "web" {
   ebs_optimized = true
 
     iam_instance_profile {
-    name = "terf"
+    name = "Jenkins"
   }
 
   image_id = data.aws_ami.latest_ubuntu.id
