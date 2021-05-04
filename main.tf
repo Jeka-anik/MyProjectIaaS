@@ -61,9 +61,9 @@ resource "aws_launch_template" "web" {
     threads_per_core = 1
   }
 
-  credit_specification {
-    cpu_credits = "standard"
-  }
+#   credit_specification {
+#     cpu_credits = "standard"
+#   }
 
   disable_api_termination = true
 
@@ -93,16 +93,16 @@ resource "aws_launch_template" "web" {
 
   network_interfaces {
     associate_public_ip_address = true
-    security_groups             = [aws_security_group.webSG.id]
+    security_groups             = aws_security_group.webSG.id
   }
 
-#   placement {
-#     availability_zone = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
-#   }
+  placement {
+    availability_zone = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
+  }
 
 #   ram_disk_id = "test"
 
-  vpc_security_group_ids = [aws_security_group.webSG.id]
+  vpc_security_group_ids = aws_security_group.webSG.id
 
   tag_specifications {
     resource_type = "instance"
@@ -112,7 +112,7 @@ resource "aws_launch_template" "web" {
     }
   }
 
-  user_data = filebase64("${path.module}/user_data.sh")
+  user_data = file("user_data.sh")
 }
 
 # resource "aws_launch_configuration" "web" {
@@ -141,7 +141,7 @@ resource "aws_autoscaling_group" "web" {
   vpc_zone_identifier  = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
   load_balancers       = [aws_elb.web.name]
   launch_template {
-    id      = "${aws_launch_template.web.id}"
+    id      = aws_launch_template.web.id
   }
   dynamic "tag" {
     for_each = {
