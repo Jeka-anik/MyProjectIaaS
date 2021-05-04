@@ -7,7 +7,7 @@ provider "aws" {
 variable "app_subnets" { 
     type = list(string) 
     description = "App subnets id" 
-    default = ["subnet-4369fc25", "subnet-de745093"]
+    default = ["subnet-4369fc25", "subnet-da21b785"]
 } 
 data "aws_availability_zones" "available" {}
 data "aws_ami" "latest_ubuntu" {
