@@ -93,7 +93,7 @@ resource "aws_launch_template" "web" {
 
   network_interfaces {
     associate_public_ip_address = true
-    security_groups             = aws_security_group.webSG.id
+    security_groups             = [aws_security_group.webSG.id]
   }
 
 #   placement {
@@ -102,7 +102,7 @@ resource "aws_launch_template" "web" {
 
 #   ram_disk_id = "test"
 
-  vpc_security_group_ids = aws_security_group.webSG.id
+  vpc_security_group_ids = [aws_security_group.webSG.id]
 
   tag_specifications {
     resource_type = "instance"
