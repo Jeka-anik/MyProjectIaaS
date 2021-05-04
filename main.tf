@@ -128,7 +128,7 @@ resource "aws_launch_template" "web" {
 #   }
 # }
 
-"aws_launch_template" "web"
+# "aws_launch_template" "web"
 
 resource "aws_autoscaling_group" "web" {
   name                 = "ASG-${aws_launch_template.web.name}"
