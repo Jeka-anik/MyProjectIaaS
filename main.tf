@@ -70,7 +70,7 @@ resource "aws_launch_template" "web" {
   ebs_optimized = true
 
     iam_instance_profile {
-    name = "mywebserverfordiplom"
+    name = "arn:aws:iam::658683390959:user/Jenkins"
   }
 
   image_id = data.aws_ami.latest_ubuntu.id
