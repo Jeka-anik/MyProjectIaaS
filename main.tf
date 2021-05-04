@@ -99,7 +99,7 @@ resource "aws_launch_template" "web" {
 #     availability_zone = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
 #   }
 
-  ram_disk_id = "test"
+#   ram_disk_id = "test"
 
   vpc_security_group_ids = [aws_security_group.webSG.id]
 
