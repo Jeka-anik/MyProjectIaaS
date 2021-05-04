@@ -57,7 +57,7 @@ resource "aws_launch_template" "web" {
   }
 
   cpu_options {
-    core_count       = 2
+    core_count       = 1
     threads_per_core = 1
   }
 
