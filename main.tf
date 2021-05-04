@@ -76,7 +76,7 @@ resource "aws_launch_template" "web" {
   image_id = data.aws_ami.latest_ubuntu.id
 
   instance_initiated_shutdown_behavior = "terminate"
-
+  security_groups = [aws_security_group.webSG.id]
   instance_type = "t3.micro"
 
   key_name = "hw41"
