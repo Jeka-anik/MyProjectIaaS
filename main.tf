@@ -123,6 +123,7 @@ resource "aws_lb_target_group" "webtg" {
   name     = "tf-lb-tg"
   port     = 80
   protocol = "HTTP"
+  target_type = "instance"
 }
 resource "aws_autoscaling_group" "web" {
   name                 = "ASG-${aws_launch_template.web.name}"
