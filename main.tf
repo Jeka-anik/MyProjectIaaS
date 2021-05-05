@@ -45,69 +45,34 @@ resource "aws_security_group" "webSG" {
     Owner = "Anik"
   }
 }
-
+#----------------------------------------
 resource "aws_launch_template" "web" {
   name = "web"
-
+  image_id      = data.aws_ami.latest_ubuntu.id
+  instance_type = var.instance_type
+  key_name = "hw41"
+  user_data = filebase64("${path.module}/user_data.sh")
   block_device_mappings {
     device_name = "/dev/sda1"
-
     ebs {
       volume_size = 10
     }
   }
-
-  capacity_reservation_specification {
-    capacity_reservation_preference = "open"
-  }
-
-#   cpu_options {
-#     core_count       = 1
-#     threads_per_core = 1
-#   }
-
-#   credit_specification {
-#     cpu_credits = "standard"
-#   }
-
-  disable_api_termination = true
-
-  ebs_optimized = true
-
-#     iam_instance_profile {
-#     name = "arn:aws:iam::658683390959:user/Jenkins"
-#   }
-
-  image_id = data.aws_ami.latest_ubuntu.id
-
   instance_initiated_shutdown_behavior = "terminate"
-  instance_type = "t2.micro"
-
-  key_name = "hw41"
-
   metadata_options {
     http_endpoint               = "enabled"
     http_tokens                 = "required"
     http_put_response_hop_limit = 1
   }
-
-  monitoring {
-    enabled = false
-  }
-
 #   network_interfaces {
 #     associate_public_ip_address = true
 #     security_groups             = [aws_security_group.webSG.id]
 #   }
-
 #   placement {
 #     availability_zone = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
 #   }
-
 #   ram_disk_id = "test"
-
   vpc_security_group_ids = [aws_security_group.webSG.id]
-
   tag_specifications {
     resource_type = "instance"
 
@@ -115,10 +80,8 @@ resource "aws_launch_template" "web" {
       Name = "MyWebServer"
     }
   }
-
-  user_data = filebase64("${path.module}/user_data.sh")
 }
-
+#--------------------------------------
 resource "aws_lb_target_group" "webtg" {
   name     = "tf-lb-tg"
   port     = 80
@@ -126,16 +89,16 @@ resource "aws_lb_target_group" "webtg" {
   target_type = "instance"
   vpc_id   = aws_vpc.main.id
 }
-
+#--------------------------------------
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 }
-
+#--------------------------------------------
 resource "aws_placement_group" "test" {
   name     = "test"
   strategy = "cluster"
 }
-
+#-------------------------------------------------
 resource "aws_autoscaling_group" "webASG" {
   name                 = "ASG-${aws_launch_template.web.name}"
 #   launch_configuration = aws_launch_configuration.web.name
@@ -143,7 +106,7 @@ resource "aws_autoscaling_group" "webASG" {
   max_size             = 2
   min_elb_capacity     = 2
   placement_group      = aws_placement_group.test.id
-  health_check_type    = "EC2"
+  health_check_type    = "ELB"
   vpc_zone_identifier  = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
   launch_template {
     id      = aws_launch_template.web.id
