@@ -142,7 +142,7 @@ resource "aws_autoscaling_group" "web" {
   min_elb_capacity     = 2
 #   health_check_type    = "ELB"
   vpc_zone_identifier  = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
-  load_balancers       = aws_lb.web.id
+  load_balancers       = aws_lb.web.name
   launch_template {
     id      = aws_launch_template.web.id
     version = "$Latest"
