@@ -12,11 +12,11 @@ variable "app_subnets" {
 data "aws_availability_zones" "available" {}
 
 data "aws_ami" "latest_ubuntu" {
-  owners      = ["099720109477"]
+  owners      = ["658683390959"]
   most_recent = true
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 }
 
@@ -81,7 +81,7 @@ resource "aws_launch_template" "web" {
   image_id = data.aws_ami.latest_ubuntu.id
 
   instance_initiated_shutdown_behavior = "terminate"
-  instance_type = "t3.micro"
+  instance_type = "t2.micro"
 
   key_name = "hw41"
 
