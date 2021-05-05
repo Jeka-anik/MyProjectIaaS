@@ -133,7 +133,11 @@ resource "aws_launch_template" "web" {
 # }
 
 # "aws_launch_template" "web"
-
+resource "aws_lb_target_group" "webtg" {
+  name     = "tf-lb-tg"
+  port     = 80
+  protocol = "HTTP"
+}
 resource "aws_autoscaling_group" "web" {
   name                 = "ASG-${aws_launch_template.web.name}"
 #   launch_configuration = aws_launch_configuration.web.name
@@ -171,6 +175,7 @@ resource "aws_lb" "weblb" {
   internal           = false
   load_balancer_type = "application"
   subnets            =  var.app_subnets
+  target_group_arn   = aws_lb_target_group.webtg.arn
 #   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
   security_groups    = [aws_security_group.webSG.id]
 #   listener {
