@@ -166,8 +166,8 @@ resource "aws_autoscaling_group" "web" {
 }
 
 
-resource "aws_lb" "web" {
-  name               = "WebServer-HA-ELB"
+resource "aws_lb" "weblb" {
+  name               = "weblb"
   internal           = false
   load_balancer_type = "application"
   subnets            =  var.app_subnets
