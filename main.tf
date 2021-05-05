@@ -124,7 +124,13 @@ resource "aws_lb_target_group" "webtg" {
   port     = 80
   protocol = "HTTP"
   target_type = "instance"
+  vpc_id   = aws_vpc.main.id
 }
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
+
 resource "aws_autoscaling_group" "web" {
   name                 = "ASG-${aws_launch_template.web.name}"
 #   launch_configuration = aws_launch_configuration.web.name
