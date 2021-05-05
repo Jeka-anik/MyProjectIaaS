@@ -5,7 +5,7 @@ provider "aws" {
 }
 variable "instance_type" {
   description = "EC2 instance type"
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 variable "app_subnets" { 
     type = list(string) 
@@ -132,28 +132,29 @@ resource "aws_autoscaling_group" "webASG" {
     create_before_destroy = true
   }
 }
-
-
+#-------------------------------
 resource "aws_lb" "weblb" {
   name               = "weblb"
   internal           = false
   load_balancer_type = "application"
   subnets            =  var.app_subnets
-#   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
   security_groups    = [aws_security_group.webSG.id]
   tags = {
     Name = "WebServer-Highly-Available-ELB"
   }
 }
+#------------------------------------------
 resource "aws_lb_target_group_attachment" "test" {
   target_group_arn = aws_lb_target_group.webtg.arn
   target_id        = data.aws_ami.latest_ubuntu.id
   port             = 80
 }
+#---------------------------------------------------------
 resource "aws_autoscaling_attachment" "asg_attachment" {
   autoscaling_group_name = aws_autoscaling_group.webASG.id
   alb_target_group_arn   = aws_lb_target_group.webtg.arn
 }
+#--------------------------------------------------------------
 resource "aws_default_subnet" "default_az1" {
   availability_zone = data.aws_availability_zones.available.names[0]
 }
