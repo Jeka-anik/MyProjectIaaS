@@ -186,7 +186,7 @@ resource "aws_lb_target_group_attachment" "test" {
 }
 resource "aws_autoscaling_attachment" "asg_attachment" {
   autoscaling_group_name = aws_autoscaling_group.webASG.id
-  lb_target_group_arn    = aws_lb_target_group.webtg.arn
+  alb_target_group_arn   = aws_lb_target_group.webtg.arn
 }
 resource "aws_default_subnet" "default_az1" {
   availability_zone = data.aws_availability_zones.available.names[0]
