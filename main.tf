@@ -12,7 +12,7 @@ variable "app_subnets" {
 data "aws_availability_zones" "available" {}
 
 data "aws_ami" "latest_ubuntu" {
-  owners      = ["658683390959"]
+  owners      = ["099720109477"]
   most_recent = true
   filter {
     name   = "name"
