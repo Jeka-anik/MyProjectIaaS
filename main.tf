@@ -10,6 +10,7 @@ variable "app_subnets" {
     default = ["subnet-4369fc25", "subnet-da21b785"]
 } 
 data "aws_availability_zones" "available" {}
+
 data "aws_ami" "latest_ubuntu" {
   owners      = ["099720109477"]
   most_recent = true
@@ -118,21 +119,6 @@ resource "aws_launch_template" "web" {
   user_data = filebase64("${path.module}/user_data.sh")
 }
 
-# resource "aws_launch_configuration" "web" {
-#   //  name            = "WebServer-Highly-Available-LC"
-#   name_prefix     = "WebServer-Highly-Available-LC-"
-#   image_id        = data.aws_ami.latest_ubuntu.id
-#   instance_type   = "t3.micro"
-#   security_groups = [aws_security_group.webSG.id]
-#   user_data       = file("user_data.sh")
-#   key_name        = "hw41"
-
-#   lifecycle {
-#     create_before_destroy = true
-#   }
-# }
-
-# "aws_launch_template" "web"
 resource "aws_lb_target_group" "webtg" {
   name     = "tf-lb-tg"
   port     = 80
@@ -178,24 +164,15 @@ resource "aws_lb" "weblb" {
   target_group_arn   = aws_lb_target_group.webtg.arn
 #   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
   security_groups    = [aws_security_group.webSG.id]
-#   listener {
-#     lb_port           = 80
-#     lb_protocol       = "http"
-#     instance_port     = 80
-#     instance_protocol = "http"
-#   }
-#   health_check {
-#     healthy_threshold   = 2
-#     unhealthy_threshold = 2
-#     timeout             = 3
-#     target              = "HTTP:80/"
-#     interval            = 10
-#   }
   tags = {
     Name = "WebServer-Highly-Available-ELB"
   }
 }
-
+resource "aws_lb_target_group_attachment" "test" {
+  target_group_arn = aws_lb_target_group.webtg.arn
+  target_id        = aws_instance.latest_ubuntu.id
+  port             = 80
+}
 
 resource "aws_default_subnet" "default_az1" {
   availability_zone = data.aws_availability_zones.available.names[0]
