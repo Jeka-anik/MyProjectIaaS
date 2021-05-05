@@ -159,7 +159,7 @@ resource "aws_autoscaling_group" "web" {
       propagate_at_launch = true
     }
   }
-
+  depends_on = [aws_lb.web]
   lifecycle {
     create_before_destroy = true
   }
