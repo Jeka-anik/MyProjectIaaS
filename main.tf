@@ -137,12 +137,12 @@ resource "aws_launch_template" "web" {
 resource "aws_autoscaling_group" "web" {
   name                 = "ASG-${aws_launch_template.web.name}"
 #   launch_configuration = aws_launch_configuration.web.name
-  min_size             = 2
+  min_size             = 1
   max_size             = 2
   min_elb_capacity     = 2
 #   health_check_type    = "ELB"
   vpc_zone_identifier  = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
-  load_balancers       = [aws_lb.web.name]
+  load_balancers       = aws_lb.web.id
   launch_template {
     id      = aws_launch_template.web.id
     version = "$Latest"
