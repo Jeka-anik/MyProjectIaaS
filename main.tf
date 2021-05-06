@@ -6,7 +6,7 @@ provider "aws" {
 #-----------------------------------------
 variable "instance_type" {
   description = "EC2 instance type"
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 #-----------------------------------------
 variable "app_subnets" { 
@@ -66,6 +66,8 @@ resource "aws_launch_template" "web" {
   }
   network_interfaces {
     associate_public_ip_address = true
+    delete_on_termination       = true
+    security_groups             = [aws_security_group.webSG.id]
   }
   credit_specification {
     cpu_credits = "standard"
