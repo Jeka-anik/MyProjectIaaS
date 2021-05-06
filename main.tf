@@ -80,7 +80,7 @@ resource "aws_launch_template" "web" {
     name = "web"
   }
   placement {
-    availability_zone = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
+    availability_zone = "us-east-1"
   }
   instance_initiated_shutdown_behavior = "terminate"
   metadata_options {
