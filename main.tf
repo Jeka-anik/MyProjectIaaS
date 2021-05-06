@@ -1,19 +1,22 @@
-#---------My task 1------------
+#---------My Project------------
 
 provider "aws" {
     region     = "us-east-1"
 }
+#-----------------------------------------
 variable "instance_type" {
   description = "EC2 instance type"
   default     = "t3.micro"
 }
+#-----------------------------------------
 variable "app_subnets" { 
     type = list(string) 
     description = "App subnets id" 
     default = ["subnet-4369fc25", "subnet-da21b785"]
 } 
+#------------------------------------------------
 data "aws_availability_zones" "available" {}
-
+#------------------------------------------------
 data "aws_ami" "latest_ubuntu" {
   owners      = ["099720109477"]
   most_recent = true
@@ -67,14 +70,6 @@ resource "aws_launch_template" "web" {
     http_tokens                 = "required"
     http_put_response_hop_limit = 1
   }
-#   network_interfaces {
-#     associate_public_ip_address = true
-#     security_groups             = [aws_security_group.webSG.id]
-#   }
-#   placement {
-#     availability_zone = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
-#   }
-#   ram_disk_id = "test"
   vpc_security_group_ids = [aws_security_group.webSG.id]
   tag_specifications {
     resource_type = "instance"
@@ -127,7 +122,7 @@ resource "aws_autoscaling_group" "webASG" {
       propagate_at_launch = true
     }
   }
-#   depends_on = [aws_lb.weblb]
+  depends_on = [aws_lb.weblb]
   lifecycle {
     create_before_destroy = true
   }
