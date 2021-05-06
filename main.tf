@@ -6,7 +6,7 @@ provider "aws" {
 #-----------------------------------------
 variable "instance_type" {
   description = "EC2 instance type"
-  default     = "t3.micro"
+  default     = "t2.micro"
 }
 #-----------------------------------------
 variable "app_subnets" { 
@@ -58,11 +58,29 @@ resource "aws_launch_template" "web" {
   instance_type = var.instance_type
   key_name = "hw41"
   user_data = filebase64("${path.module}/user_data.sh")
+  disable_api_termination = true
+  ebs_optimized = true
+    cpu_options {
+    core_count       = 2
+    threads_per_core = 2
+  }
+  network_interfaces {
+    associate_public_ip_address = true
+  }
+  credit_specification {
+    cpu_credits = "standard"
+  }
   block_device_mappings {
     device_name = "/dev/sda1"
     ebs {
       volume_size = 10
     }
+  }
+    iam_instance_profile {
+    name = "web"
+  }
+  placement {
+    availability_zone = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
   }
   instance_initiated_shutdown_behavior = "terminate"
   metadata_options {
