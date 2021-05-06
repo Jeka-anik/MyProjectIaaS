@@ -64,11 +64,11 @@ resource "aws_launch_template" "web" {
     core_count       = 2
     threads_per_core = 2
   }
-  network_interfaces {
-    associate_public_ip_address = true
-    delete_on_termination       = true
-    security_groups             = [aws_security_group.webSG.id]
-  }
+#   network_interfaces {
+#     associate_public_ip_address = true
+#     delete_on_termination       = true
+#     security_groups             = [aws_security_group.webSG.id]
+#   }
   credit_specification {
     cpu_credits = "standard"
   }
