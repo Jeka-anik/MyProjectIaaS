@@ -158,7 +158,7 @@ resource "aws_lb" "weblb" {
 #------------------------------------------
 resource "aws_lb_target_group_attachment" "test" {
   target_group_arn = aws_lb_target_group.webtg.arn
-  target_id        = data.aws_ami.latest_ubuntu.id
+  target_id        = aws_launch_template.web.id
   port             = 80
 }
 #---------------------------------------------------------
