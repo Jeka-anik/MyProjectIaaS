@@ -78,9 +78,6 @@ resource "aws_launch_template" "web" {
       volume_size = 10
     }
   }
-    iam_instance_profile {
-    name = "mywebserver"
-  }
   placement {
     availability_zone = "us-east-1"
   }
