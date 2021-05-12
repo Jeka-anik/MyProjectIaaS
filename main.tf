@@ -79,7 +79,7 @@ resource "aws_launch_template" "web" {
     }
   }
     iam_instance_profile {
-    name = "mywebserverforhw43"
+    name = "mywebserver"
   }
   placement {
     availability_zone = "us-east-1"
