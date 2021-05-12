@@ -61,7 +61,7 @@ resource "aws_launch_template" "web" {
   disable_api_termination = true
   ebs_optimized = true
     cpu_options {
-    core_count       = 2
+    core_count       = 1
     threads_per_core = 2
   }
 #   network_interfaces {
