@@ -60,10 +60,10 @@ resource "aws_launch_template" "web" {
   user_data = filebase64("${path.module}/user_data.sh")
   disable_api_termination = true
   ebs_optimized = true
-    cpu_options {
-    core_count       = 4
-    threads_per_core = 2
-  }
+#     cpu_options {
+#     core_count       = 4
+#     threads_per_core = 2
+#   }
 #   network_interfaces {
 #     associate_public_ip_address = true
 #     delete_on_termination       = true
