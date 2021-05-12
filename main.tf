@@ -54,7 +54,7 @@ resource "aws_security_group" "webSG" {
 #----------------------------------------
 resource "aws_launch_template" "web" {
   name = "web"
-  image_id      = "ami-00d1ab6b335f217cf"
+  image_id      = "ami-09e67e426f25ce0d7"
   instance_type = "t3.micro"
   key_name = "hw41"
   user_data = filebase64("${path.module}/user_data.sh")
