@@ -54,15 +54,15 @@ resource "aws_security_group" "webSG" {
 #----------------------------------------
 resource "aws_launch_template" "web" {
   name = "web"
-  image_id      = "ami-09e67e426f25ce0d7"
-  instance_type = "t2.micro"
+  image_id      = "ami-00d1ab6b335f217cf"
+  instance_type = "t3.micro"
   key_name = "hw41"
   user_data = filebase64("${path.module}/user_data.sh")
   disable_api_termination = true
   ebs_optimized = true
     cpu_options {
-    core_count       = 1
-    threads_per_core = 1
+    core_count       = 2
+    threads_per_core = 2
   }
 #   network_interfaces {
 #     associate_public_ip_address = true
@@ -121,7 +121,7 @@ resource "aws_autoscaling_group" "webASG" {
   max_size             = 2
   min_elb_capacity     = 2
   placement_group      = aws_placement_group.test.id
-  health_check_type    = "ELB"
+  health_check_type    = "EC2"
   vpc_zone_identifier  = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
   launch_template {
     id      = aws_launch_template.web.id
