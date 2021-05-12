@@ -55,13 +55,13 @@ resource "aws_security_group" "webSG" {
 resource "aws_launch_template" "web" {
   name = "web"
   image_id      = "ami-09e67e426f25ce0d7"
-  instance_type = var.instance_type
+  instance_type = "t2.micro"
   key_name = "hw41"
   user_data = filebase64("${path.module}/user_data.sh")
   disable_api_termination = true
   ebs_optimized = true
     cpu_options {
-    core_count       = 1
+    core_count       = 4
     threads_per_core = 2
   }
 #   network_interfaces {
