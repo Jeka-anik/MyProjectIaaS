@@ -155,7 +155,7 @@ resource "aws_lb" "weblb" {
   subnets            =  var.app_subnets
   security_groups    = [aws_security_group.webSG.id]
   tags = {
-    Name = "WebServer-Highly-Available-ELB"
+    Name = "WebServer-ALB"
   }
 }
 #------------------------------------------
