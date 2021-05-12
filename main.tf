@@ -109,10 +109,10 @@ resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 }
 #--------------------------------------------
-resource "aws_placement_group" "test" {
-  name     = "test"
-  strategy = "cluster"
-}
+# resource "aws_placement_group" "test" {
+#   name     = "test"
+#   strategy = "cluster"
+# }
 #-------------------------------------------------
 resource "aws_autoscaling_group" "webASG" {
   name                 = "ASG-${aws_launch_template.web.name}"
@@ -120,7 +120,7 @@ resource "aws_autoscaling_group" "webASG" {
   min_size             = 2
   max_size             = 2
   min_elb_capacity     = 2
-  placement_group      = aws_placement_group.test.id
+#   placement_group      = aws_placement_group.test.id
   health_check_type    = "EC2"
   vpc_zone_identifier  = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
   launch_template {
