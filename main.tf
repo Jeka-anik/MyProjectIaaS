@@ -156,11 +156,11 @@ resource "aws_lb" "weblb" {
   }
 }
 #------------------------------------------
-resource "aws_lb_target_group_attachment" "test" {
-  target_group_arn = aws_lb_target_group.webtg.arn
-  target_id        = aws_launch_template.web.id
-  port             = 80
-}
+# resource "aws_lb_target_group_attachment" "test" {
+#   target_group_arn = aws_lb_target_group.webtg.arn
+#   target_id        = aws_launch_template.web.id
+#   port             = 80
+# }
 #---------------------------------------------------------
 resource "aws_autoscaling_attachment" "asg_attachment" {
   autoscaling_group_name = aws_autoscaling_group.webASG.id
