@@ -17,19 +17,19 @@ variable "app_subnets" {
 #------------------------------------------------
 data "aws_availability_zones" "available" {}
 #------------------------------------------------
-data "aws_instance" "webserver_instans" {
+data "aws_instances" "webserver_instans" {
   tags = {
-    Name = "forJenkins"
+    Name = "WebServer"
   }
 
   filter {
     name   = "tag:Name"
-    values = ["forJenkins"]
+    values = ["WebServer"]
   }
 }
 
 output "aws_instans_public_ip" {
-    value = data.aws_instance.webserver_instans.public_ip
+    value = data.aws_instances.webserver_instans.public_ips
 }
 #--------------------------------------------------
 data "aws_ami" "latest_ubuntu" {
@@ -150,7 +150,7 @@ resource "aws_autoscaling_group" "webASG" {
   target_group_arns    = [aws_lb_target_group.webtg.arn]
   dynamic "tag" {
     for_each = {
-      Name   = "WebServer in ASG"
+      Name   = "WebServer"
       Owner  = "Anik"
       TAGKEY = "TAGVALUE"
     }
