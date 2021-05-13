@@ -18,7 +18,7 @@ variable "app_subnets" {
 data "aws_availability_zones" "available" {}
 #------------------------------------------------
 data "aws_instances" "webserver_instans" {
-  tags = {
+  instance_tags = {
     Name = "WebServer"
   }
 
