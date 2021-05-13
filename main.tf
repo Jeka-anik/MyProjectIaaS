@@ -102,7 +102,7 @@ resource "aws_lb_target_group" "webtg" {
   port     = 80
   protocol = "HTTP"
   target_type = "instance"
-  vpc_id   = aws_vpc.main.id
+  vpc_id   = "vpc-a067c6dd"
 }
 #--------------------------------------
 resource "aws_vpc" "main" {
