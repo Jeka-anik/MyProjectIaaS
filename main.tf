@@ -127,7 +127,7 @@ resource "aws_autoscaling_group" "webASG" {
     id      = aws_launch_template.web.id
     version = aws_launch_template.web.latest_version
   }
-  target_group_arns    = "aws_lb_target_group.webtg.arn"
+  target_group_arns    = [aws_lb_target_group.webtg.arn]
   dynamic "tag" {
     for_each = {
       Name   = "WebServer in ASG"
