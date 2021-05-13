@@ -17,20 +17,20 @@ variable "app_subnets" {
 #------------------------------------------------
 data "aws_availability_zones" "available" {}
 #------------------------------------------------
-data "aws_instances" "test" {
+data "aws_instances" "webserver_instans" {
   instance_tags = {
-    Name = "WebServer in ASG"
+    Name = "WebServer"
   }
 
 #   filter {
 #     name   = "instance.group-id"
 #     values = ["sg-12345678"]
 #   }
-  instance_state_names = ["running", "stopped"]
+  instance_state_names = ["running", "stopped", "terminated"]
 }
 
 output "aws_instans_public_ip" {
-    value = data.aws_instances.test.public_ips
+    value = data.aws_instances.webserver_instans.public_ips
 }
 #--------------------------------------------------
 data "aws_ami" "latest_ubuntu" {
