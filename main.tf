@@ -22,10 +22,10 @@ data "aws_instance" "webserver_instans" {
     Name = "forJenkins"
   }
 
-#   filter {
-#     name   = "instance.group-id"
-#     values = ["sg-12345678"]
-#   }
+  filter {
+    name   = "tag:Name"
+    values = ["forJenkins"]
+  }
 }
 
 output "aws_instans_public_ip" {
