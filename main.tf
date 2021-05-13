@@ -26,6 +26,7 @@ data "aws_instances" "webserver_instans" {
     name   = "tag:Name"
     values = ["WebServer"]
   }
+  depends_on = ["aws_autoscaling_group.webASG"]
 }
 
 output "aws_instans_public_ip" {
