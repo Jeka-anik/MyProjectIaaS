@@ -19,7 +19,7 @@ data "aws_availability_zones" "available" {}
 #------------------------------------------------
 data "aws_instance" "webserver_instans" {
   tags = {
-    Name = "WebServer"
+    Name = "WebServer in ASG"
   }
 
 #   filter {
