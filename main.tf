@@ -109,10 +109,15 @@ resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 }
 #--------------------------------------------
-# resource "aws_placement_group" "test" {
-#   name     = "test"
-#   strategy = "cluster"
-# }
+resource "aws_lb_listener" "webListener" {
+  load_balancer_arn = aws_lb.weblb.arn
+  port              = "80"
+  protocol          = "HTTP"
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.webtg.arn
+  }
+}
 #-------------------------------------------------
 resource "aws_autoscaling_group" "webASG" {
   name                 = "ASG-${aws_launch_template.web.name}"
@@ -163,10 +168,10 @@ resource "aws_lb" "weblb" {
 #   port             = 80
 # }
 #---------------------------------------------------------
-resource "aws_autoscaling_attachment" "asg_attachment" {
-  autoscaling_group_name = aws_autoscaling_group.webASG.id
-  alb_target_group_arn   = aws_lb_target_group.webtg.arn
-}
+# resource "aws_autoscaling_attachment" "asg_attachment" {
+#   autoscaling_group_name = aws_autoscaling_group.webASG.id
+#   alb_target_group_arn   = aws_lb_target_group.webtg.arn
+# }
 #--------------------------------------------------------------
 resource "aws_default_subnet" "default_az1" {
   availability_zone = data.aws_availability_zones.available.names[0]
