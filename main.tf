@@ -125,15 +125,15 @@ resource "aws_lb_target_group" "webtg" {
 #   cidr_block = "10.0.0.0/16"
 # }
 #--------------------------------------------
-resource "aws_lb_listener" "webListener" {
-  load_balancer_arn = aws_lb.weblb.arn
-  port              = "8080"
-  protocol          = "HTTP"
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.webtg.arn
-  }
-}
+# resource "aws_lb_listener" "webListener" {
+#   load_balancer_arn = aws_lb.weblb.arn
+#   port              = "8080"
+#   protocol          = "HTTP"
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.webtg.arn
+#   }
+# }
 #-------------------------------------------------
 resource "aws_autoscaling_group" "webASG" {
   name                 = "ASG-${aws_launch_template.web.name}"
