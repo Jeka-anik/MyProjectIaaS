@@ -115,7 +115,7 @@ resource "aws_launch_template" "web" {
 #--------------------------------------
 resource "aws_lb_target_group" "webtg" {
   name     = "tf-lb-tg"
-  port     = 8080
+  port     = 80
   protocol = "HTTP"
   target_type = "instance"
   vpc_id   = "vpc-a067c6dd"
