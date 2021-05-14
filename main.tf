@@ -113,7 +113,7 @@ resource "aws_launch_template" "web" {
   }
 }
 #--------------------------------------
-resource "aws_lb_target_group" "webtg" {
+resource "aws_lb_target_group" "webtag" {
   name     = "lb-tg"
   port     = 80
   protocol = "HTTP"
@@ -131,7 +131,7 @@ resource "aws_lb_listener" "webListener" {
   protocol          = "HTTP"
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.webtg.arn
+    target_group_arn = aws_lb_target_group.webtag.arn
   }
 }
 #-------------------------------------------------
@@ -148,7 +148,7 @@ resource "aws_autoscaling_group" "webASG" {
     id      = aws_launch_template.web.id
     version = aws_launch_template.web.latest_version
   }
-  target_group_arns    = [aws_lb_target_group.webtg.arn]
+  target_group_arns    = [aws_lb_target_group.webtag.arn]
   dynamic "tag" {
     for_each = {
       Name   = "WebServer"
