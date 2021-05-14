@@ -114,16 +114,16 @@ resource "aws_launch_template" "web" {
 }
 #--------------------------------------
 resource "aws_lb_target_group" "webtg" {
-  name     = "lb-tg"
+  name     = "tf-lb-tg"
   port     = 8080
   protocol = "HTTP"
   target_type = "instance"
   vpc_id   = "vpc-a067c6dd"
 }
 #--------------------------------------
-resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
-}
+# resource "aws_vpc" "main" {
+#   cidr_block = "10.0.0.0/16"
+# }
 #--------------------------------------------
 resource "aws_lb_listener" "webListener" {
   load_balancer_arn = aws_lb.weblb.arn
