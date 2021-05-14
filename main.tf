@@ -127,7 +127,7 @@ resource "aws_vpc" "main" {
 #--------------------------------------------
 resource "aws_lb_listener" "webListener" {
   load_balancer_arn = aws_lb.weblb.arn
-  port              = "8080"
+  port              = "80"
   protocol          = "HTTP"
   default_action {
     type             = "forward"
