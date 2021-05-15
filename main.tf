@@ -80,11 +80,6 @@ resource "aws_launch_template" "web" {
     core_count       = 1
     threads_per_core = 2
   }
-#   network_interfaces {
-#     associate_public_ip_address = true
-#     delete_on_termination       = true
-#     security_groups             = [aws_security_group.webSG.id]
-#   }
   credit_specification {
     cpu_credits = "standard"
   }
@@ -120,10 +115,6 @@ resource "aws_lb_target_group" "webtg" {
   target_type = "instance"
   vpc_id   = "vpc-a067c6dd"
 }
-#--------------------------------------
-# resource "aws_vpc" "main" {
-#   cidr_block = "10.0.0.0/16"
-# }
 #--------------------------------------------
 resource "aws_lb_listener" "webListener" {
   load_balancer_arn = aws_lb.weblb.arn
@@ -137,11 +128,9 @@ resource "aws_lb_listener" "webListener" {
 #-------------------------------------------------
 resource "aws_autoscaling_group" "webASG" {
   name                 = "ASG-${aws_launch_template.web.name}"
-#   launch_configuration = aws_launch_configuration.web.name
   min_size             = 2
   max_size             = 2
   min_elb_capacity     = 2
-#   placement_group      = aws_placement_group.test.id
   health_check_type    = "ELB"
   vpc_zone_identifier  = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
   launch_template {
@@ -178,17 +167,6 @@ resource "aws_lb" "weblb" {
   }
 }
 #------------------------------------------
-# resource "aws_lb_target_group_attachment" "test" {
-#   target_group_arn = aws_lb_target_group.webtg.arn
-#   target_id        = aws_launch_template.web.id
-#   port             = 80
-# }
-#---------------------------------------------------------
-# resource "aws_autoscaling_attachment" "asg_attachment" {
-#   autoscaling_group_name = aws_autoscaling_group.webASG.id
-#   alb_target_group_arn   = aws_lb_target_group.webtg.arn
-# }
-#--------------------------------------------------------------
 resource "aws_default_subnet" "default_az1" {
   availability_zone = data.aws_availability_zones.available.names[0]
 }
