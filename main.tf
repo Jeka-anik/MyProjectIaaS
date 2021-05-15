@@ -1,4 +1,4 @@
-#---------My Project------------
+#---------My Project----------------------
 
 provider "aws" {
     region     = "us-east-1"
