@@ -131,6 +131,7 @@ resource "aws_autoscaling_group" "webASG" {
   min_size             = 2
   max_size             = 2
   min_elb_capacity     = 2
+  health_check_grace_period = 900
   health_check_type    = "ELB"
   vpc_zone_identifier  = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
   launch_template {
