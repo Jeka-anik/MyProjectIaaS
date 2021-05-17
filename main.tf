@@ -176,4 +176,16 @@ resource "aws_default_subnet" "default_az2" {
   availability_zone = data.aws_availability_zones.available.names[1]
 }
 
+
 #--------------------------------------------------
+data "aws_lb" "weblb" {}
+
+resource "null_resource" "exp_dns_name" {
+  provisioner "local-exec" {
+    command = "echo $var1 >> dns.txt"
+    enrivoment = {
+        var1 = aws_lb.weblb.dns_name
+      }
+    }
+   depends_on = [aws_lb.weblb]
+ }
