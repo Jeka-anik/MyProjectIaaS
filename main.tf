@@ -166,12 +166,12 @@ resource "aws_lb" "weblb" {
   tags = {
     Name = "WebServer-ALB"
   }
-  provisioner "local-exec" {
-    command = "echo $var1 >> dns.txt"
-    environment = {
-        var1 = aws_lb.weblb.dns_name
-      }
-    }
+#   provisioner "local-exec" {
+#     command = "echo $var1 >> dns.txt"
+#     environment = {
+#         var1 = aws_lb.weblb.dns_name
+#       }
+#     }
 }
 #------------------------------------------
 resource "aws_default_subnet" "default_az1" {
@@ -188,12 +188,12 @@ data "aws_lb" "weblb" {
        depends_on = [aws_lb.weblb]
 }
 #--------------------------------------------------
-# resource "null_resource" "exp_dns_name" {
-#   provisioner "local-exec" {
-#     command = "echo $var1 >> dns.txt"
-#     environment = {
-#         var1 = aws_lb.weblb.dns_name
-#       }
-#     }
-#    depends_on = [aws_lb.weblb]
-#  }
+resource "null_resource" "exp_dns_name" {
+  provisioner "local-exec" {
+    command = "echo $var1 >> dns.txt"
+    environment = {
+        var1 = aws_lb.weblb.dns_name
+      }
+    }
+   depends_on = [aws_lb.weblb]
+ }
