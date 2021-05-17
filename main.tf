@@ -189,6 +189,9 @@ data "aws_lb" "weblb" {
 }
 #--------------------------------------------------
 resource "null_resource" "exp_dns_name" {
+  triggers = {
+    dns_name         = aws_lb.weblb.dns_name
+  }
   provisioner "local-exec" {
     command = "echo $var1 >> dns.txt"
     environment = {
