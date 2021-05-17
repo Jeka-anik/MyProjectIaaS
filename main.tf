@@ -179,7 +179,7 @@ resource "aws_default_subnet" "default_az2" {
 
 #--------------------------------------------------
 data "aws_lb" "weblb" {}
-
+#--------------------------------------------------
 resource "null_resource" "exp_dns_name" {
   provisioner "local-exec" {
     command = "echo $var1 >> dns.txt"
